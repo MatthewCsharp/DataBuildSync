@@ -12,7 +12,7 @@ Easily sync DataBuild projects to the cloud and ensure they're up to date.
 
 ## Getting Started
 
-Steps:<br />
+**Steps:**<br />
 **1.** Head into settings and add your representatives (users)<br />
 **2.** Select your new user account and add DataBuild projects you want to be sync<br />
 **3.** Set your destination folder and click "Copy". You're done!<br />
