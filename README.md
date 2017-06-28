@@ -4,18 +4,18 @@ Easily sync DataBuild projects to the cloud and ensure they're up to date.
 
 ## Features
 
-* Parallel transfers for SSDs<br />
-* Multiple users<br />
-* Dropbox and Google Drive support<br />
-* Multiple logging options<br />
-* Two-way image sync<br />
+* Parallel transfers for SSDs
+* Multiple users
+* Dropbox and Google Drive support
+* Multiple logging options
+* Two-way image sync
 
 ## Getting Started
 
-Steps:
-**1.** Head into settings and add your representatives (users)
-**2.** Select your new user account and add DataBuild projects you want to be sync
-**3.** Set your destination folder and click "Copy". You're done!
+Steps:<br />
+**1.** Head into settings and add your representatives (users)<br />
+**2.** Select your new user account and add DataBuild projects you want to be sync<br />
+**3.** Set your destination folder and click "Copy". You're done!<br />
 
 ### Prerequisites
 
