@@ -4,11 +4,11 @@ Easily sync DataBuild projects to the cloud and ensure they're up to date.
 
 ## Features
 
-* Parallel transfers for SSDs
-* Multiple users
-* Dropbox and Google Drive support
-* Multiple logging options
-* Two-way image sync
+* Parallel transfers for SSDs<br />
+* Multiple users<br />
+* Dropbox and Google Drive support<br />
+* Multiple logging options<br />
+* Two-way image sync<br />
 
 ## Getting Started
 
