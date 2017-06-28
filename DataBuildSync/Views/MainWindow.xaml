@@ -167,11 +167,12 @@
                             Click="RemoveProjectBtnClick" />
                     <Grid Grid.Row="4">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Button Content="Settings"  IsEnabled="True" Click="Settings" Margin="5,3,2.5,3"  />
-                        <Button Content="Logs" Grid.Column="1" IsEnabled="True" Click="OpenLogFolder" Margin="2.5,3,5,3"  />
+                        <Button Content="Settings" IsEnabled="True" Click="Settings" Margin="5,3,2.5,3" />
+                        <Button Content="Logs" Grid.Column="1" IsEnabled="True" Click="OpenLogFolder"
+                                Margin="2.5,3,5,3" />
                     </Grid>
 
                 </Grid>

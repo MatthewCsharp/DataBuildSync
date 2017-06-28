@@ -12,17 +12,10 @@ namespace DataBuildSync.Models {
                 var doc = new XDocument(new XElement("body",
 
                     // Configuration
-                    new XElement("Configuration",
-                        new XElement("ParallelTransfer", "false"),
-                        new XElement("LoggingLevel", "Standard"),
-                        new XElement("DefaultProjectFolder", @"C:\Projects"),
-                        new XElement("DefaultDestinationFolder", @"C:\Destination")),
+                    new XElement("Configuration", new XElement("ParallelTransfer", "false"), new XElement("LoggingLevel", "Standard"), new XElement("DefaultProjectFolder", @"C:\Projects"), new XElement("DefaultDestinationFolder", @"C:\Destination")),
 
                     // Representatives -> Rep
-                    new XElement("Representatives",
-                        new XElement("Rep",
-                            new XElement("Initials", "JG"))
-                    ),
+                    new XElement("Representatives", new XElement("Rep", new XElement("Initials", "JG"))),
 
                     // ProjectLinks -> Link
                     new XElement("ProjectLinks")));
@@ -74,9 +67,7 @@ namespace DataBuildSync.Models {
                 var eles = doc.Descendants("Rep");
                 var list = new List<Rep>();
                 foreach (var ele in eles) {
-                    list.Add(new Rep {
-                        Initial = ele.Descendants("Initials").First().Value
-                    });
+                    list.Add(new Rep {Initial = ele.Descendants("Initials").First().Value});
                 }
 
                 return list;
@@ -93,9 +84,7 @@ namespace DataBuildSync.Models {
 
                 var ele = doc.Descendants("Rep").SingleOrDefault(d => d.Descendants("Initials").First().Value == initial);
 
-                return new Rep {
-                    Initial = ele.Descendants("Initials").First().Value
-                };
+                return new Rep {Initial = ele.Descendants("Initials").First().Value};
             }
             catch (Exception e) {
                 MessageBox.Show(e.Message);
@@ -109,8 +98,7 @@ namespace DataBuildSync.Models {
 
                 var ele = doc.Descendants("Representatives").First();
 
-                var newRep = new XElement("Rep",
-                    new XElement("Initials", model.Initial));
+                var newRep = new XElement("Rep", new XElement("Initials", model.Initial));
 
                 ele.Add(newRep);
 
@@ -176,11 +164,7 @@ namespace DataBuildSync.Models {
 
                 var ele = doc.Descendants("ProjectLinks").First();
 
-                var newLink = new XElement("Link",
-                    new XElement("ProjectCode", model.ProjectCode),
-                    new XElement("RepInitials", model.RepInitials),
-                    new XElement("ProjectPath", model.ProjectPath),
-                    new XElement("ProjectName", model.ProjectName),
+                var newLink = new XElement("Link", new XElement("ProjectCode", model.ProjectCode), new XElement("RepInitials", model.RepInitials), new XElement("ProjectPath", model.ProjectPath), new XElement("ProjectName", model.ProjectName),
                     new XElement("Backup", model.Backup));
 
                 ele.Add(newLink);
@@ -198,9 +182,7 @@ namespace DataBuildSync.Models {
 
                 var projectLinksEle = doc.Descendants("ProjectLinks").First();
 
-                var singleOrDefault =
-                    projectLinksEle.Descendants("Link")
-                        .SingleOrDefault(d => d.Descendants("RepInitials").First().Value == link.RepInitials && d.Descendants("ProjectName").First().Value == link.ProjectName);
+                var singleOrDefault = projectLinksEle.Descendants("Link").SingleOrDefault(d => d.Descendants("RepInitials").First().Value == link.RepInitials && d.Descendants("ProjectName").First().Value == link.ProjectName);
 
                 if (singleOrDefault != null) {
                     singleOrDefault.Descendants("Backup").First().Value = link.Backup.ToString().ToLower();
@@ -222,9 +204,7 @@ namespace DataBuildSync.Models {
 
                 var projectLinksEle = doc.Descendants("ProjectLinks").First();
 
-                var singleOrDefault =
-                    projectLinksEle.Descendants("Link")
-                        .SingleOrDefault(d => d.Descendants("RepInitials").First().Value == link.RepInitials && d.Descendants("ProjectName").First().Value == link.ProjectName);
+                var singleOrDefault = projectLinksEle.Descendants("Link").SingleOrDefault(d => d.Descendants("RepInitials").First().Value == link.RepInitials && d.Descendants("ProjectName").First().Value == link.ProjectName);
                 singleOrDefault?.Remove();
                 doc.Save("Settings.xml");
             }

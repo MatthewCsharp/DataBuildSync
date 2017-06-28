@@ -32,11 +32,7 @@ namespace DataBuildSync.Views {
 
         private void ChangeFolders(object sender, RoutedEventArgs e) {
             var btnName = ((Button) sender).Name;
-            var dialog = new CommonOpenFileDialog {
-                IsFolderPicker = true,
-                AddToMostRecentlyUsedList = false,
-                InitialDirectory = btnName == "ChangeProjectBtn" ? ProjectLocationTxt.Text : DestinationLocationTxt.Text
-            };
+            var dialog = new CommonOpenFileDialog {IsFolderPicker = true, AddToMostRecentlyUsedList = false, InitialDirectory = btnName == "ChangeProjectBtn" ? ProjectLocationTxt.Text : DestinationLocationTxt.Text};
 
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok) {
                 if (btnName == "ChangeProjectBtn") {
@@ -79,6 +75,16 @@ namespace DataBuildSync.Views {
             }
         }
 
+        private void OpenLogFolder(object sender, RoutedEventArgs e) {
+            Directory.CreateDirectory("./Logs");
+            try {
+                Process.Start(new ProcessStartInfo {FileName = $"{AppDomain.CurrentDomain.BaseDirectory}/Logs", UseShellExecute = true, Verb = "open"});
+            }
+            catch (Exception exception) {
+                MessageBox.Show(exception.Message);
+            }
+        }
+
         #region Configuration
 
         public static Configuration Config;
@@ -109,17 +115,12 @@ namespace DataBuildSync.Views {
 
                 var reps = XmlHandler.GetReps();
                 if (reps.Count == 0) {
-                    var item = new MenuItem {
-                        Header = "No reps",
-                        IsEnabled = false
-                    };
+                    var item = new MenuItem {Header = "No reps", IsEnabled = false};
                     menu.Items.Add(item);
                 }
                 else {
                     foreach (var rep in reps) {
-                        var item = new MenuItem {
-                            Header = rep.Initial
-                        };
+                        var item = new MenuItem {Header = rep.Initial};
                         item.Click += OpenRepProjectsClick;
 
                         menu.Items.Add(item);
@@ -152,12 +153,7 @@ namespace DataBuildSync.Views {
         }
 
         private void AddProjectBtnClick(object sender, RoutedEventArgs e) {
-            var dialog = new CommonOpenFileDialog {
-                IsFolderPicker = true,
-                AddToMostRecentlyUsedList = false,
-                InitialDirectory = ProjectLocationTxt.Text,
-                Multiselect = true
-            };
+            var dialog = new CommonOpenFileDialog {IsFolderPicker = true, AddToMostRecentlyUsedList = false, InitialDirectory = ProjectLocationTxt.Text, Multiselect = true};
 
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok) {
                 var folders = dialog.FileNames;
@@ -185,13 +181,7 @@ namespace DataBuildSync.Views {
                             failedList += projectName + "\n";
                         }
                         else {
-                            var newProjectLink = new ProjectLink {
-                                Backup = true,
-                                RepInitials = SelectedRep.Initial,
-                                ProjectName = projectName,
-                                ProjectPath = projectPath,
-                                ProjectCode = projectCode
-                            };
+                            var newProjectLink = new ProjectLink {Backup = true, RepInitials = SelectedRep.Initial, ProjectName = projectName, ProjectPath = projectPath, ProjectCode = projectCode};
                             XmlHandler.CreateProjectLink(newProjectLink);
                             _projectLinks.Add(newProjectLink);
                             CopyBtn.IsEnabled = _projectLinks.Count() != 0;
@@ -293,21 +283,5 @@ namespace DataBuildSync.Views {
         }
 
         #endregion
-
-        private void OpenLogFolder(object sender, RoutedEventArgs e) {
-            Directory.CreateDirectory("./Logs");
-            try {
-                Process.Start(new ProcessStartInfo()
-                {
-                    FileName = $"{AppDomain.CurrentDomain.BaseDirectory}/Logs",
-                    UseShellExecute = true,
-                    Verb = "open"
-                });
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show(exception.Message);
-            }
-        }
     }
 }

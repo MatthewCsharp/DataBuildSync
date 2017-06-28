@@ -120,9 +120,9 @@ namespace DataBuildSync.Views.Copy {
                             while (File.Exists($"./Logs/{logFileName}.txt")) {
                                 currentExtention++;
                                 var hyphenIndex = logFileName.IndexOf('-') + 1;
-                                
-                                logFileName = logFileName.Substring(0,hyphenIndex);
-                                logFileName += " "+ currentExtention;
+
+                                logFileName = logFileName.Substring(0, hyphenIndex);
+                                logFileName += " " + currentExtention;
                             }
                             File.WriteAllLines($"./Logs/{logFileName}.txt", _lines);
                             _mostRecentLogFile = logFileName;
@@ -138,7 +138,6 @@ namespace DataBuildSync.Views.Copy {
                 }
             });
             Dispatcher.BeginInvoke(new Action(() => { CurrentFolderNameTxt.Text = ""; }));
-            
         }
 
         private string ValidateFolder(string path) {
@@ -216,11 +215,8 @@ namespace DataBuildSync.Views.Copy {
             }
         }
 
-
-
         private void CopyDirectory(string sourceDirName, string destDirName) {
             try {
-             
                 // Get the subdirectories for the specified directory.
                 var dir = new DirectoryInfo(sourceDirName);
 

@@ -59,9 +59,7 @@ namespace DataBuildSync.Views.Settings {
 
         private void AddRepClick(object sender, RoutedEventArgs e) {
             try {
-                var newRep = new Rep {
-                    Initial = InitialsTxtBox.Text.ToUpper()
-                };
+                var newRep = new Rep {Initial = InitialsTxtBox.Text.ToUpper()};
                 XmlHandler.CreateRep(newRep);
                 InitialsTxtBox.Text = "";
                 RepListBox.Items.Add(newRep.Initial);
