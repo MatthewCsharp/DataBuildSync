@@ -1,0 +1,40 @@
+﻿<Window x:Class="DataBuildSync.Views.Settings.SettingsView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DataBuildSync.Views.Settings"
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen"
+        Title="SettingsView" Height="300" Width="250" ResizeMode="NoResize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Button Content="Representatives" Click="AddRepClick" />
+        <Border Style="{StaticResource Divider}" Grid.Row="1" />
+        <StackPanel Grid.Row="2" Margin="5" Orientation="Horizontal">
+            <TextBlock Width="100" Text="Parallel Transfers:" />
+            <CheckBox Margin="10,0,0,0" VerticalAlignment="Center" Name="ParallelTransfersCheckBox"
+                      Click="ToggleSettings" />
+        </StackPanel>
+        <Border Style="{StaticResource Divider}" Grid.Row="3" />
+        <StackPanel Grid.Row="4" Margin="5" Orientation="Horizontal">
+            <TextBlock Width="100" Text="Logging:" />
+            <StackPanel Grid.Row="1" Margin="5">
+                <RadioButton Margin="0,5" GroupName="LoggingLevelRadios" Name="VerboseRadio"
+                             Click="ToggleLoggingSettings">
+                    Verbose
+                </RadioButton>
+                <RadioButton Margin="0,5" GroupName="LoggingLevelRadios" Name="StandardRadio"
+                             Click="ToggleLoggingSettings">
+                    Standard
+                </RadioButton>
+                <RadioButton Margin="0,5" GroupName="LoggingLevelRadios" Name="NoneRadio" Click="ToggleLoggingSettings">None</RadioButton>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

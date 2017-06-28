@@ -1,0 +1,221 @@
+﻿<Window x:Class="DataBuildSync.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DataBuildSync"
+        xmlns:properties="clr-namespace:DataBuildSync.Properties"
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen" Name="Main"
+        Title="DataBuild Sync" MinWidth="700" MinHeight="460" Width="700" Height="460" Background="White"
+        BorderThickness="1"
+        BorderBrush="#374249" WindowStyle="None" MouseDown="DragTopBar" AllowsTransparency="True"
+        ResizeMode="CanResizeWithGrip">
+    <Window.Resources>
+        <properties:Settings x:Key="Settings" />
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Background="#374249">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Menu DockPanel.Dock="Top" Background="Transparent" VerticalAlignment="Center" Foreground="White"
+                  Name="TopMenu">
+                <MenuItem Header="_File" Height="30" Padding="10,0">
+                    <MenuItem Header="Open Project List" Foreground="Black" Click="OpenProjectListBtn" />
+                    <MenuItem Header="Add Project Files" Foreground="Black" Click="AddProjectBtnClick" />
+                    <MenuItem Header="Open Settings.xml" Foreground="Black" Click="OpenSettingsFile" />
+                    <MenuItem Header="Open Log Folder" Foreground="Black" Click="OpenLogFolder" />
+                    <Separator />
+                    <MenuItem Header="Settings" Foreground="Black" Click="Settings" />
+                    <MenuItem Header="Exit" Foreground="Black" Click="Quit" />
+                </MenuItem>
+            </Menu>
+            <TextBlock Text="DataBuild Sync" Grid.Column="1" Foreground="Orange" VerticalAlignment="Center"
+                       Margin="10,0,0,0" />
+
+            <Button Grid.Column="3" Style="{x:Null}" Width="40" BorderThickness="0" Background="Transparent"
+                    Foreground="White" Cursor="Hand" Click="Maximize">
+                <Border BorderThickness="1" BorderBrush="White" Width="10" Height="10" VerticalAlignment="Center"
+                        HorizontalAlignment="Center" />
+            </Button>
+
+            <Button Grid.Column="4" Style="{x:Null}" Width="40" BorderThickness="0" Background="Transparent"
+                    Content="X" Foreground="White" Cursor="Hand" Click="Quit" />
+
+        </Grid>
+
+
+        <Grid Grid.Row="1" Name="MainGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="180" />
+            </Grid.ColumnDefinitions>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Name="SelectedRepTxt" Visibility="Collapsed" Padding="5" />
+                    <Border Background="#f3f5f6" BorderThickness="1" BorderBrush="#374249" Grid.Row="1" />
+
+                    <ListView Grid.Row="1" Background="Transparent" Name="ProjectListItemControl">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Height="20">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <CheckBox Uid="{Binding ProjectName}" Click="ChangeBackupCheckBox" Grid.Column="0"
+                                              Margin="5,0,0,0" VerticalAlignment="Center"
+                                              VerticalContentAlignment="Center" IsChecked="{Binding Backup}" />
+                                    <TextBlock Grid.Column="1" VerticalAlignment="Center" Margin="5,0,0,0"
+                                               Text="{Binding ProjectName}" />
+
+
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <!--<ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" Grid.Row="1">
+                        <ItemsControl Name="ProjectListItemControl" >
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid >
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Border BorderThickness="1" Grid.ColumnSpan="2" BorderBrush="Gray"></Border>
+                                        <CheckBox Grid.Column="0" Margin="5,0,0,0" VerticalAlignment="Center" VerticalContentAlignment="Center" IsChecked="{Binding Backup}"></CheckBox>
+                                        <Button Grid.Column="1" Background="Transparent" BorderThickness="0" HorizontalContentAlignment="Left"  Content="{Binding ProjectName}"></Button>
+
+
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>-->
+
+
+                </Grid>
+
+                <Grid Grid.Row="1" Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Style="{StaticResource Title}" Text="Source &amp; Destination Paths" Padding="5,2" />
+                    <TextBox Name="ProjectLocationTxt" IsEnabled="False"
+
+                             Grid.Row="1" Margin="5,3,0,3" />
+                    <Button Name="ChangeProjectBtn" HorizontalAlignment="Left" Width="150"
+                            Content="Change Projects Folder" Grid.Row="2" Click="ChangeFolders" />
+                    <TextBox Name="DestinationLocationTxt" IsEnabled="False"
+                             Grid.Row="3"
+                             Margin="5,3,0,3" />
+                    <Button Name="ChangeDestinationBtn" HorizontalAlignment="Left" Width="150"
+                            Content="Change Destination" Grid.Row="4" Click="ChangeFolders" />
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Column="1" Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Style="{StaticResource Title}" Text="Projects" Padding="5,2" />
+                    <Button Content="Open Project List" Grid.Row="1" Click="OpenProjectListBtn" />
+                    <Button Name="AddProjectBtn" Click="AddProjectBtnClick" Content="Add Project" IsEnabled="False"
+                            Grid.Row="2" />
+                    <Button Content="Remove Projects(s)" Grid.Row="3" Name="RemoveProjectBtn"
+                            Click="RemoveProjectBtnClick" />
+                    <Grid Grid.Row="4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Content="Settings"  IsEnabled="True" Click="Settings" Margin="5,3,2.5,3"  />
+                        <Button Content="Logs" Grid.Column="1" IsEnabled="True" Click="OpenLogFolder" Margin="2.5,3,5,3"  />
+                    </Grid>
+
+                </Grid>
+                <Border Style="{StaticResource Divider}" Grid.Row="1" />
+                <Grid Grid.Row="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Style="{StaticResource Title}" Text="Cloud Destination" Padding="5,2" />
+                    <StackPanel Grid.Row="1" Margin="5">
+                        <RadioButton Margin="0,5" GroupName="cloudDestinationRadio">OneDrive</RadioButton>
+                        <RadioButton GroupName="cloudDestinationRadio" IsChecked="True">Dropbox</RadioButton>
+                    </StackPanel>
+                </Grid>
+                <Border Style="{StaticResource Divider}" Grid.Row="3" />
+                <Button Name="CopyBtn" IsEnabled="False" Grid.Row="4" Content="Copy" Click="CopyBtnClick" />
+                <Border Style="{StaticResource Divider}" Grid.Row="5" />
+
+                <Grid Grid.Row="7">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Style="{StaticResource Title}" Text="Configuration" Padding="5,2" />
+
+                    <TextBox IsReadOnly="True" Name="ParallelTransfersTxt" Text="Parallel Tranfers: True" Grid.Row="1"
+                             BorderBrush="Transparent" />
+                    <TextBox IsReadOnly="True" Name="LoggingTxt" Text="Logging: True" Grid.Row="2"
+                             BorderBrush="Transparent" />
+                    <TextBox IsReadOnly="True" Visibility="Hidden" Grid.Row="3" BorderBrush="Transparent" />
+                    <TextBox IsReadOnly="True" Visibility="Hidden" Grid.Row="4" BorderBrush="Transparent" />
+
+                </Grid>
+
+
+            </Grid>
+
+        </Grid>
+    </Grid>
+</Window>
