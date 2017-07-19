@@ -23,8 +23,8 @@ You'll need to install WindowsAPICodePack located here: https://www.nuget.org/pa
 
 ### Installing
 
-Open the project in Visual Studio (2015 and higher) and compile.
--or-
+Open the project in Visual Studio (2015 and higher) and compile.<br />
+-or-<br />
 Download the pre-compiled version here: https://github.com/MatthewCsharp/DataBuildSync/releases
 
 ## Built With
